@@ -1,0 +1,20 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "dev@moxvallix.com",
+                "Name": "Moxvallix"
+            }
+        ],
+        "Category": "Fun and Games",
+        "Description": "Get player count from a Minecraft server.",
+        "Icon": "face-smile",
+        "Id": "com.moxvallix.mcping",
+        "Name": "Minecraft Server Ping",
+        "Version": "1",
+        "Website": "https://github.com/moxvallix/mcping",
+        "BugReportUrl": "https://github.com/moxvallix/mcping/issues"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "KPackageStructure": "Plasma/Applet"
+}

@@ -12,9 +12,13 @@
         "Id": "com.moxvallix.mcping",
         "Name": "Minecraft Server Ping",
         "Version": "1",
+        "License": "GPLv3",
         "Website": "https://github.com/moxvallix/mcping",
         "BugReportUrl": "https://github.com/moxvallix/mcping/issues"
     },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-MainScript": "ui/main.qml",
+    "X-Plasma-MainConfiguration": "contents/config/config.qml",
     "X-Plasma-API-Minimum-Version": "6.0",
     "KPackageStructure": "Plasma/Applet"
 }

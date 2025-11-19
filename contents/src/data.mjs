@@ -1,36 +1,57 @@
 import {runCommand} from "./helpers.mjs";
 import ServerInfo from "./serverInfo.mjs";
 
-const MCPING_PATH = Qt.resolvedUrl("../bin/mcping-rs").toString().replace("file://", "");
 const SERVER_INFO_DATA = {};
+const BRIDGE = Qt.createQmlObject(
+  'import QtQuick 2.0; QtObject { signal serverListUpdate(var value) }',
+  Qt.application,
+  'QmlDataBridge'
+);
 
 let plasmoid;
+let plasmoidRoot;
+let path;
 
-function onLoad(plasmoidInstance) {
+function onLoad(plasmoidInstance, root, basePath) {
   plasmoid = plasmoidInstance;
-  runCommand("date", (_1, _2, stdout, _3) => console.log(stdout));
+  plasmoidRoot = root;
+  path = basePath;
+  
+  updateServerInfoList();
 }
 
-function getServerName(entry) {
-  const [name, _] = entry.split(":").map(decodeURIComponent);
-
-  return name;
+function onRefresh() {
+  updateServerInfoList();
 }
 
-function getServerAddress(entry) {
-  const [_, address] = entry.split(":").map(decodeURIComponent);
-
-  return address;
+function getServerInfo(entry) {
+  return entry.split(":").map(decodeURIComponent);
 }
 
-function getAddressList() {
-  return plasmoid.configuration.serverList.map(getServerAddress);
+function getServerInfoList() {
+  return plasmoid.configuration.serverList.map(getServerInfo);
+}
+
+function getMCPingPath() {
+  return `${path}/bin/mcping-rs`;
 }
 
 function updateServerInfo(name, address) {
-  runCommand(`${MCPING_PATH} ${address}`, (_1, _2, stdout, _3) => {
+  runCommand(`${getMCPingPath()} ${address}`, (_1, _2, stdout, _3) => {
+    // console.log(stdout, _3);
     SERVER_INFO_DATA[address] = new ServerInfo(name, address, JSON.parse(stdout));
+    BRIDGE.serverListUpdate(SERVER_INFO_DATA);
   });
 }
 
-export {onLoad};
+function getServerInfoData() {
+  return SERVER_INFO_DATA;
+}
+
+function updateServerInfoList() {
+  getServerInfoList().forEach(element => {
+    updateServerInfo(...element);
+  });
+}
+
+export {BRIDGE, SERVER_INFO_DATA, getServerInfoData, onLoad, onRefresh, path};

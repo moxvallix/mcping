@@ -7,16 +7,40 @@ Kirigami.Page {
     id: page
 
     property int cfg_refreshTime
+    property int cfg_rotationTime
     property var cfg_serverList
+    property string cfg_selectedServer
     property int cfg_refreshTimeDefault
+    property int cfg_rotationTimeDefault
     property var cfg_serverListDefault
+     property string cfg_selectedServerDefault
 
-    function formatServerText(entry) {
+    function formatServerText(entry, html = true) {
         let [name, address] = entry.split(":").map(decodeURIComponent);
 
-        return `<b>${name}</b> (${address})`;
+        if (html) {
+            return `<b>${name}</b> (${address})`;
+        } else {
+            return `${name} (${address})`;
+        }
     }
 
+    function addRecord() {
+        const newName = encodeURIComponent(serverName.text.trim());
+        const newAddress = encodeURIComponent(serverAddress.text.trim());
+        if (newName.length === 0 || newAddress.length === 0) return;
+
+        const existingAddresses = (cfg_serverList || []).map(entry => entry.split(":")[1].toString());
+        if (existingAddresses.includes(newAddress)) {
+            serverName.text = "";
+            serverAddress.text = "";
+            return ;
+        }
+
+        cfg_serverList = (cfg_serverList || []).concat([`${newName}:${newAddress}`]);
+        serverName.text = "";
+        serverAddress.text = "";
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -37,11 +61,52 @@ Kirigami.Page {
                 from: 5
                 to: 300
                 stepSize: 1
-                value: cfg_refreshTime
-                onValueChanged: cfg_refreshTime = value
+                value: cfg_refreshTime / 1000
+                onValueChanged: cfg_refreshTime = value * 1000
             }
         }
 
+        ColumnLayout {
+            spacing: Kirigami.Units.smallSpacing
+            RowLayout {
+                QQC2.Label {
+                    text: i18n("Rotation Interval (seconds):")
+                }
+
+                QQC2.SpinBox {
+                    id: rotationTimeSpinBox
+                    from: 0
+                    to: 300
+                    stepSize: 1
+                    value: cfg_rotationTime / 1000
+                    onValueChanged: cfg_rotationTime = value * 1000
+                }
+            }
+            
+            QQC2.Label {
+                text: i18n("Note: set to 0 to disable server rotation.")
+                font.pointSize: 8
+                topInset: -4
+            }
+        }
+
+        RowLayout {
+            QQC2.Label {
+                text: i18n("Selected Server:")
+            }
+
+            QQC2.ComboBox {
+                id: selectedServerComboBox
+                model: cfg_serverList.map(entry => {
+                    return {value: entry.split(":")[1], text: formatServerText(entry, false)}
+                })
+                textRole: "text"
+                valueRole: "value"
+                currentValue: cfg_selectedServer
+                onActivated: cfg_selectedServer = currentValue
+                enabled: cfg_rotationTime < 1
+            }
+        }
 
         QQC2.Label {
             text: i18n("Minecraft Servers")
@@ -136,22 +201,7 @@ Kirigami.Page {
             QQC2.Button {
                 text: i18n("Add")
                 enabled: serverName.text.length > 0 && serverAddress.text.length > 0
-                onClicked: {
-                    const newName = encodeURIComponent(serverName.text.trim());
-                    const newAddress = encodeURIComponent(serverAddress.text.trim());
-                    if (newName.length === 0 || newAddress.length === 0) return;
-
-                    const existingAddresses = (cfg_serverList || []).map(entry => entry.split(":")[1].toString());
-                    if (existingAddresses.includes(newAddress)) {
-                        newName.text = "";
-                        newAddress.text = "";
-                        return ;
-                    }
-
-                    cfg_serverList = (cfg_serverList || []).concat([`${newName}:${newAddress}`]);
-                    newName.text = "";
-                    newAddress.text = "";
-                }
+                onClicked: { addRecord() }
             }
 
         }

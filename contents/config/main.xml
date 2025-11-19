@@ -6,9 +6,15 @@
 
   <group name="General">
     <entry name="refreshTime" type="Int">
-      <default>10</default>
+      <default>15000</default>
+    </entry>
+    <entry name="rotationTime" type="Int">
+      <default>10000</default>
     </entry>
     <entry name="serverList" type="StringList">
+      <default></default>
+    </entry>
+    <entry name="selectedServer" type="String">
       <default></default>
     </entry>
   </group>

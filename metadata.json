@@ -8,10 +8,10 @@
         ],
         "Category": "Fun and Games",
         "Description": "Get player count from a Minecraft server.",
-        "Icon": "face-smile",
+        "Icon": "shape-cuboid-symbolic",
         "Id": "com.moxvallix.mcping",
         "Name": "Minecraft Server Ping",
-        "Version": "1",
+        "Version": "0.1.0",
         "License": "GPLv3",
         "Website": "https://github.com/moxvallix/mcping",
         "BugReportUrl": "https://github.com/moxvallix/mcping/issues"
@@ -19,6 +19,5 @@
     "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-MainScript": "ui/main.qml",
     "X-Plasma-MainConfiguration": "contents/config/config.qml",
-    "X-Plasma-API-Minimum-Version": "6.0",
     "KPackageStructure": "Plasma/Applet"
 }

@@ -28,4 +28,54 @@ function runCommand(command, callback) {
   instance.exec();
 }
 
-export {safeDig, runCommand}
+class Option {
+  static none() {
+    return new Option(undefined);
+  }
+
+  static of(value) {
+    return new Option(value);
+  }
+
+  constructor(value) {
+    this._value = value;
+  }
+
+  get() {
+    return this._value;
+  }
+
+  exist() {
+    return this._value !== undefined;
+  }
+
+  empty() {
+    return !this.exist();
+  }
+
+  or(callback) {
+    if (this.exist()) {
+      return this._value;
+    } else {
+      return callback();
+    }
+  }
+
+  if(ifCallback, elseCallback = undefined) {
+    if (this.empty()) {
+      if (typeof elseCallback === "function") elseCallback();
+
+      return;
+    }
+
+    ifCallback(this._value)
+  }
+
+  expect(error) {
+    if (this.exist()) return;
+
+    throw error;
+  }
+}
+
+export {safeDig, runCommand, Option}

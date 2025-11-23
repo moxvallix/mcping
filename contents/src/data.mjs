@@ -1,4 +1,4 @@
-import {runCommand} from "./helpers.mjs";
+import {Option, runCommand} from "./helpers.mjs";
 import ServerInfo from "./serverInfo.mjs";
 
 const SERVER_INFO_DATA = {};
@@ -36,10 +36,32 @@ function getMCPingPath() {
   return `${path}/bin/mcping-rs`;
 }
 
+function cleanupServerInfoData() {
+  const addresses = getServerInfoList().map(e => e[1]);
+  Object.keys(SERVER_INFO_DATA).forEach(key => {
+    if (!addresses.includes(key)) {
+      delete SERVER_INFO_DATA[key];
+    }
+  })
+}
+
 function updateServerInfo(name, address) {
   runCommand(`${getMCPingPath()} ${address}`, (_1, _2, stdout, _3) => {
     // console.log(stdout, _3);
-    SERVER_INFO_DATA[address] = new ServerInfo(name, address, JSON.parse(stdout));
+
+    let serverInfo;
+
+    try {
+      const data = JSON.parse(stdout);
+
+      serverInfo = Option.of(new ServerInfo(name, address, data)); 
+    } catch (error) {
+      serverInfo = Option.none();
+    }
+
+    SERVER_INFO_DATA[address] = serverInfo;
+    cleanupServerInfoData();
+
     BRIDGE.serverListUpdate(SERVER_INFO_DATA);
   });
 }

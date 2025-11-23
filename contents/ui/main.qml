@@ -17,22 +17,41 @@ PlasmoidItem {
         updateMainLabel();
     }
 
-    function getSelectedServer() {
+    function getSelectedServerAddress() {
         const serverAddress = decodeURIComponent(plasmoid.configuration.selectedServer);
 
         if (!serverData) {
             return;
         }
 
-        return serverData[serverAddress] || Object.values(serverData)[0];
+        const addresses = Object.keys(serverData);
+        if (addresses.includes(serverAddress)) {
+            return serverAddress;
+        }
+
+        return addresses[0];
+    }
+
+    function getSelectedServer() {
+        if (!serverData) {
+            return;
+        }
+
+        return serverData[getSelectedServerAddress()];
     }
 
     function updateMainLabel() {
+        const address = getSelectedServerAddress();
         const server = getSelectedServer();
 
         if (server) {
-            mainLabel = server.summaryText();
-            plasmoidRoot.toolTipSubText = server.playerInfo();
+            server.if(data => {
+                mainLabel = data.summaryText();
+                plasmoidRoot.toolTipSubText = data.playerInfo();
+            }, () => {
+                mainLabel = `Error retrieving data for: ${address}`;
+                plasmoidRoot.toolTipSubText = Plasmoid.metaData.description;
+            });
         } else {
             mainLabel = "No Server Configured";
             plasmoidRoot.toolTipSubText = Plasmoid.metaData.description;

@@ -102,7 +102,7 @@ Kirigami.Page {
                 })
                 textRole: "text"
                 valueRole: "value"
-                currentValue: cfg_selectedServer
+                currentIndex: cfg_serverList.map(entry => entry.split(":")[1]).indexOf(cfg_selectedServer)
                 onActivated: cfg_selectedServer = currentValue
                 enabled: cfg_rotationTime < 1
             }

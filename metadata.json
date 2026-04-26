@@ -11,7 +11,7 @@
         "Icon": "shape-cuboid-symbolic",
         "Id": "com.moxvallix.mcping",
         "Name": "Minecraft Server Ping",
-        "Version": "0.1.0",
+        "Version": "0.1.1",
         "License": "GPLv3",
         "Website": "https://github.com/moxvallix/mcping",
         "BugReportUrl": "https://github.com/moxvallix/mcping/issues"

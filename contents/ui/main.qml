@@ -1,7 +1,7 @@
-import "../src/data.mjs" as Data
 import QtNetwork as Network
 import QtQuick 2.0
 import QtQuick.Layouts
+import "../src/data.mjs" as Data
 import org.kde.plasma.components as PlasmaComponents
 import org.kde.plasma.plasmoid
 

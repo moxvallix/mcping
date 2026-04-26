@@ -14,10 +14,15 @@ function safeDig(obj, ...args) {
   }
 }
 
+let commandComponent;
 function runCommand(command, callback) {
-  const component = Qt.createComponent("../ui/CustomDataSource.qml");
+  if (!commandComponent) {
+    commandComponent = Qt.createComponent("../ui/CustomDataSource.qml")
+  }
+  
+  if (commandComponent.status !== 1) return;
 
-  const instance = component.createObject(null, {command});
+  const instance = commandComponent.createObject(null, {command});
   
   instance.onExited.connect((exitCode, exitStatus, stdout, stderr) => {
     callback(exitCode, exitStatus, stdout, stderr);

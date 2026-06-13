@@ -173,11 +173,11 @@ Kirigami.Page {
             Layout.fillWidth: true
 
             QQC2.Label {
-                text: "Server Name:"
+                text: i18n("Server Name:")
             }
 
             QQC2.Label {
-                text: "Server Address:"
+                text: i18n("Server Address:")
             }
 
             Item {}

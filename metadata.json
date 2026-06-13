@@ -19,5 +19,6 @@
     "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-MainScript": "ui/main.qml",
     "X-Plasma-MainConfiguration": "contents/config/config.qml",
+    "X-KDE-Translations-Domain": "plasma_applet_com.moxvallix.mcping",
     "KPackageStructure": "Plasma/Applet"
 }

@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: com.moxvallix.mcping 0.1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-13 00:00+0000\n"
+"PO-Revision-Date: 2026-06-13 00:00+0000\n"
+"Last-Translator: Translator <translator@example.com>\n"
+"Language-Team: Chinese <zh_CN@example.com>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "General"
+msgstr "常规"
+
+msgid "Error retrieving data for: %1"
+msgstr "获取 %1 的数据时出错"
+
+msgid "No Server Configured"
+msgstr "未配置服务器"
+
+msgid "Config"
+msgstr "配置"
+
+msgid "Refresh Interval (seconds):"
+msgstr "刷新间隔（秒）："
+
+msgid "Rotation Interval (seconds):"
+msgstr "轮换间隔（秒）："
+
+msgid "Note: set to 0 to disable server rotation."
+msgstr "注意：设为 0 可禁用服务器轮换。"
+
+msgid "Selected Server:"
+msgstr "已选服务器："
+
+msgid "Minecraft Servers"
+msgstr "Minecraft 服务器"
+
+msgid "Server Name:"
+msgstr "服务器名称："
+
+msgid "Server Address:"
+msgstr "服务器地址："
+
+msgid "My Minecraft Server"
+msgstr "我的 Minecraft 服务器"
+
+msgid "mc.example.com:25565"
+msgstr "mc.example.com:25565"
+
+msgid "Add"
+msgstr "添加"

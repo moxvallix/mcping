@@ -49,11 +49,11 @@ PlasmoidItem {
                 mainLabel = data.summaryText();
                 plasmoidRoot.toolTipSubText = data.playerInfo();
             }, () => {
-                mainLabel = `Error retrieving data for: ${address}`;
+                mainLabel = i18n("Error retrieving data for: %1").arg(address);
                 plasmoidRoot.toolTipSubText = Plasmoid.metaData.description;
             });
         } else {
-            mainLabel = "No Server Configured";
+            mainLabel = i18n("No Server Configured");
             plasmoidRoot.toolTipSubText = Plasmoid.metaData.description;
         }
     }

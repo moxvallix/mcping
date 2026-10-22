@@ -33,7 +33,7 @@ function getServerInfoList() {
 }
 
 function getMCPingPath() {
-  return `${path}/bin/mcping-rs`;
+  return "bin/mcping-rs";
 }
 
 function cleanupServerInfoData() {
@@ -46,7 +46,7 @@ function cleanupServerInfoData() {
 }
 
 function updateServerInfo(name, address) {
-  runCommand(`${getMCPingPath()} ${address}`, (_1, _2, stdout, _3) => {
+  runCommand(path, `${getMCPingPath()} ${address}`, (_1, _2, stdout, _3) => {
     // console.log(stdout, _3);
 
     let serverInfo;

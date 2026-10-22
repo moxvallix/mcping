@@ -1,7 +1,7 @@
 // GNU GPLv3 by enielrodriguez
 // https://github.com/enielrodriguez/optimus-gpu-switcher/blob/main/contents/ui/CustomDataSource.qml
 
-import QtQuick 2.15
+import QtQuick
 import org.kde.plasma.plasma5support as Plasma5Support
 
 // Custom DataSource component that can be used to create various DataSources.
